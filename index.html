@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개인 통합 웹사이트</title>
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem("integrated_theme_v1");
+          if (savedTheme === "dark" || savedTheme === "light") {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+          }
+        } catch {}
+      })();
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap");
+
+      :root {
+        --bg: #f6f6ef;
+        --ink: #172033;
+        --muted: #5f6a80;
+        --card: #fffef8;
+        --line: #d8d3bf;
+        --accent: #c2410c;
+        --accent-2: #0f766e;
+        --shadow: 0 14px 28px rgb(23 32 51 / 0.08);
+      }
+
+      [data-theme="dark"] {
+        --bg: #0b1220;
+        --ink: #e5e7eb;
+        --muted: #94a3b8;
+        --card: #111827;
+        --line: #334155;
+        --accent: #fb923c;
+        --accent-2: #2dd4bf;
+        --shadow: 0 14px 28px rgb(0 0 0 / 0.35);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 90% -10%, rgb(194 65 12 / 0.16), transparent 35%),
+          radial-gradient(circle at 0% 90%, rgb(15 118 110 / 0.14), transparent 32%),
+          var(--bg);
+        font-family: "IBM Plex Sans KR", sans-serif;
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 56px 20px 72px;
+      }
+
+      .hero {
+        border: 1px solid var(--line);
+        background: linear-gradient(140deg, #fffef7, #fff8e7);
+        border-radius: 20px;
+        padding: 34px;
+        box-shadow: var(--shadow);
+      }
+
+      [data-theme="dark"] .hero {
+        background: linear-gradient(140deg, #0f172a, #111827);
+      }
+
+      .hero-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      [data-theme="dark"] .eyebrow {
+        background: #1f2937;
+      }
+
+      .theme-toggle {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 14px;
+        background: var(--card);
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      h1 {
+        margin: 14px 0 10px;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(2rem, 3.2vw, 3rem);
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .grid {
+        margin-top: 26px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 20px;
+        background: var(--card);
+        text-decoration: none;
+        color: inherit;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .chip {
+        margin-top: 14px;
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .c-editor { color: var(--accent); }
+      .c-presentation { color: var(--accent-2); }
+      .c-project { color: #334155; }
+
+      footer {
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+        .wrap { padding-top: 32px; }
+        .hero-top { align-items: flex-start; flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-top">
+          <span class="eyebrow">Integrated Workspace</span>
+          <button id="global-theme-toggle" class="theme-toggle" type="button">다크 모드</button>
+        </div>
+        <h1>개인 통합 웹사이트</h1>
+        <p class="lead">
+          발표 자료, 연구 에디터, 실험용 프로젝트를 하나의 포털에서 관리합니다.
+          아래 카드에서 하위 웹사이트로 이동하세요.
+        </p>
+
+        <div class="grid">
+          <a class="card" href="./editor/">
+            <h2>리포트 에디터</h2>
+            <p>Markdown + LaTeX + Mermaid 기반 연구 리포트 작성/관리 웹앱.</p>
+            <span class="chip c-editor">OPEN /editor/</span>
+          </a>
+
+          <a class="card" href="./presentations/">
+            <h2>발표자료 모음</h2>
+            <p>세미나, 수업, 연구 발표 슬라이드 자료를 정리하는 공간.</p>
+            <span class="chip c-presentation">OPEN /presentations/</span>
+          </a>
+
+          <a class="card" href="./projects/">
+            <h2>기타 웹사이트</h2>
+            <p>실험용 도구, 데모 페이지 등 추가 프로젝트를 확장할 공간.</p>
+            <span class="chip c-project">OPEN /projects/</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        GitHub Pages 기준 URL: https://shiroshio.github.io/PersonalRepo/
+      </footer>
+    </div>
+    <script>
+      const themeKey = "integrated_theme_v1";
+      const themeToggleBtn = document.getElementById("global-theme-toggle");
+
+      function currentTheme() {
+        return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      }
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+        themeToggleBtn.textContent = theme === "dark" ? "라이트 모드" : "다크 모드";
+      }
+
+      try {
+        const saved = localStorage.getItem(themeKey);
+        applyTheme(saved === "dark" ? "dark" : "light");
+      } catch {
+        applyTheme("light");
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        const next = currentTheme() === "dark" ? "light" : "dark";
+        applyTheme(next);
+        try {
+          localStorage.setItem(themeKey, next);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>
